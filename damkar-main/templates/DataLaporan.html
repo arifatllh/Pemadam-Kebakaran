@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Data Laporan Kebakaran | Damkar.Sub</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+
+  <style>
+    .regu-select,
+    .selesai-select {
+      padding: 6px 12px;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      background: #eef2ff;
+      color: #1e40af;
+      font-weight: 600;
+      font-size: 12px;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .regu-select:hover,
+    .selesai-select:hover {
+      border-color: #c7d2fe;
+      background: #e0e7ff;
+    }
+
+    .regu-select:focus,
+    .selesai-select:focus {
+      border-color: #6366f1;
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .regu-select.assigned {
+      background: #dbeafe;
+      color: #1d4ed8;
+    }
+
+    .selesai-select {
+      background: #fef3c7;
+      color: #92400e;
+    }
+
+    .selesai-select.selesai {
+      background: #dcfce7;
+      color: #166534;
+    }
+  </style>
+</head>
+
+<body class="page-data-laporan">
+  <input type="checkbox" id="sidebarToggle" class="sidebar-toggle" />
+  <div class="dashboard">
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <a href="{{ url_for('dashboard') }}" class="brand" aria-label="Damkar.Sub Admin Panel">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12.2 2.2c.7 2.1.2 3.8-.9 5.2-.7.9-1.1 1.6-.8 2.5.5-.6 1.1-1.1 1.9-1.6 1.7-1.1 2.5-2.7 2.2-4.6 3.9 2.5 6.2 6.1 6.2 10.1 0 4.4-3.6 8-8.4 8s-8.4-3.6-8.4-8c0-2.9 1.5-5.3 3.4-7.1-.1 1.5.3 2.7 1.3 3.8.2-1.8 1.2-3.3 2.2-4.5.9-1.1 1.6-2.2 1.3-3.8Z" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <strong>Damkar.Sub</strong>
+              <span>Admin Panel</span>
+            </div>
+          </a>
+          <label for="sidebarToggle" class="menu-button" aria-label="Tutup sidebar">
+            <span></span>
+          </label>
+        </div>
+
+        <p class="nav-section-title">Menu Utama</p>
+
+        <nav class="nav-menu" aria-label="Navigasi admin">
+          <a href="{{ url_for('dashboard') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-16v5h7V4h-7Z" />
+            </svg>
+            Dashboard
+          </a>
+          <a href="{{ url_for('laporan_kebakaran') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+            </svg>
+            Laporan Kebakaran
+          </a>
+          <a href="{{ url_for('tracking_laporan') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2a8 8 0 0 0-8 8c0 5.3 8 12 8 12s8-6.7 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+            </svg>
+            Tracking Laporan
+          </a>
+          <a href="{{ url_for('data_laporan') }}" class="nav-link active">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h16v4H4V4Zm0 6h16v4H4v-4Zm0 6h16v4H4v-4Z" />
+            </svg>
+            Manajemen Data
+          </a>
+          <a href="{{ url_for('pesan_kontak_page') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            Pesan Masuk
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar">P</div>
+          <div class="user-info">
+            <strong>Petugas Admin</strong>
+            <span>Command Center</span>
+          </div>
+        </div>
+        <a class="logout-btn" href="{{ url_for('logout') }}"
+          style="display:flex;align-items:center;justify-content:center;text-decoration:none;">Logout</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="header">
+        <label for="sidebarToggle" class="mobile-open" aria-label="Buka sidebar"><span></span></label>
+        <div class="header-title">
+          <h1><i class="fas fa-chart-line"></i> Data Laporan Kebakaran</h1>
+          <p>Monitoring kejadian &amp; status penanganan regu pemadam</p>
+        </div>
+        <div class="header-actions">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input id="searchInput" placeholder="Cari nama, email, telepon, jenis..." type="text" />
+          </div>
+          <button class="btn-refresh" onclick="location.reload();">
+            <i class="fas fa-sync-alt"></i> Refresh
+          </button>
+        </div>
+      </header>
+
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+      {% for category, message in messages %}
+      <div
+        style="padding:12px 16px;border-radius:14px;margin-bottom:18px;background:#dcfce7;color:#166534;font-weight:600;border:1px solid #86efac;">
+        <i class="fas fa-check-circle"></i> {{ message }}
+      </div>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+
+      <div class="stats">
+        <div class="stat-card">
+          <div class="stat-icon red">
+            <i class="fas fa-fire"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ reports | length }}</h3>
+            <p>Total Laporan</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon green">
+            <i class="fas fa-check-double"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ reports | selectattr('selesai') | list | length }}</h3>
+            <p>Selesai</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon orange">
+            <i class="fas fa-hourglass-half"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ reports | rejectattr('selesai') | list | length }}</h3>
+            <p>Belum Selesai</p>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon blue">
+            <i class="fas fa-truck-fast"></i>
+          </div>
+          <div class="stat-info">
+            <h3>{{ reports | selectattr('regu', 'defined') | rejectattr('regu', 'equalto', '-') | list | length }}</h3>
+            <p>Regu Ditugaskan</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrapper">
+        <div class="table-header">
+          <div class="table-title">
+            <i class="fas fa-table-list"></i> Daftar Kejadian Kebakaran
+          </div>
+          <div class="filter-status">
+            <label><i class="fas fa-filter"></i> Status:</label>
+            <select id="filterStatus">
+              <option value="all">Semua Status</option>
+              <option value="Normal">Normal</option>
+              <option value="Sedang">Sedang</option>
+              <option value="Tinggi">Tinggi</option>
+            </select>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Nama Pelapor</th>
+                <th>Nomor Telepon</th>
+                <th>Status</th>
+                <th>Jenis Kebakaran</th>
+                <th>Action (Regu)</th>
+                <th>Penyelesaian</th>
+                <th style="width: 60px;">Detail</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for r in reports %}
+              <tr data-id="{{ r.id }}">
+                <td class="nama-cell">
+                  <strong>{{ r.get('nama', 'Tanpa Nama') }}</strong>
+                  <span class="email-sub">{{ r.get('email', '-') }}</span>
+                </td>
+                <td><i class="fas fa-phone-alt"></i> {{ r.get('telepon', '-') }}</td>
+                <td>
+                  {% if 'Tinggi' in r.status %}
+                  <span class="badge proses"><i class="fas fa-exclamation-triangle"></i> {{ r.status }}</span>
+                  {% elif 'Sedang' in r.status %}
+                  <span class="badge proses"><i class="fas fa-spinner"></i> {{ r.status }}</span>
+                  {% else %}
+                  <span class="badge selesai"><i class="fas fa-check-circle"></i> {{ r.status }}</span>
+                  {% endif %}
+                </td>
+                <td><i class="fas fa-fire"></i> {{ r.get('jenis_bangunan', '-') | replace('_', ' ') | title }}</td>
+
+                <td>
+                  <select class="regu-select {% if r.get('regu') and r.get('regu') != '-' %}assigned{% endif %}"
+                    data-id="{{ r.id }}">
+                    <option value="" {% if not r.get('regu') or r.get('regu')=='-' %}selected{% endif %}>Belum
+                      ditugaskan</option>
+                    <option value="Regu A" {% if r.get('regu')=='Regu A' %}selected{% endif %}>Regu A</option>
+                    <option value="Regu B" {% if r.get('regu')=='Regu B' %}selected{% endif %}>Regu B</option>
+                    <option value="Regu C" {% if r.get('regu')=='Regu C' %}selected{% endif %}>Regu C</option>
+                    <option value="Regu D" {% if r.get('regu')=='Regu D' %}selected{% endif %}>Regu D</option>
+                    <option value="Regu E" {% if r.get('regu')=='Regu E' %}selected{% endif %}>Regu E</option>
+                  </select>
+                </td>
+
+                <td>
+                  <select class="selesai-select {% if r.get('selesai') %}selesai{% endif %}" data-id="{{ r.id }}">
+                    <option value="belum" {% if not r.get('selesai') %}selected{% endif %}>⏳ Belum Selesai</option>
+                    <option value="selesai" {% if r.get('selesai') %}selected{% endif %}>✓ Selesai</option>
+                  </select>
+                </td>
+
+                <td class="action-cell">
+                  <button class="btn-detail" data-id="{{ r.id }}">
+                    <i class="fas fa-ellipsis-v"></i>
+                  </button>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="7" style="text-align:center;padding:40px;color:#94a3b8;">
+                  Belum ada laporan. <a href="{{ url_for('laporan_kebakaran') }}"
+                    style="color:#ef4444;font-weight:600;">Input laporan baru</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+        <div class="table-footer">
+          <i class="fas fa-info-circle"></i> Klik tombol <i class="fas fa-ellipsis-v"></i> untuk melihat detail lengkap
+          laporan
+        </div>
+      </div>
+    </main>
+  </div>
+  <div class="modal" id="detailModal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3><i class="fas fa-file-alt"></i> Detail Laporan Kebakaran</h3>
+        <span class="close-modal">×</span>
+      </div>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <script>
+    const detailData = {{ (detail_json or { }) | tojson | safe }};
+
+    const filterSelect = document.getElementById('filterStatus');
+    const searchInput = document.getElementById('searchInput');
+    const tableRows = document.querySelectorAll('.data-table tbody tr');
+
+    // =========================================================
+    // FILTER TABEL
+    // =========================================================
+    function filterTable() {
+      const selectedStatus = filterSelect.value;
+      const searchTerm = searchInput.value.toLowerCase();
+
+      tableRows.forEach(row => {
+        if (row.querySelector('td[colspan]')) return;
+
+        const statusSpan = row.querySelector('td:nth-child(3) .badge');
+        const namaCell = row.querySelector('.nama-cell strong');
+        const emailCell = row.querySelector('.email-sub');
+        const phoneCell = row.querySelector('td:nth-child(2)');
+        const jenisCell = row.querySelector('td:nth-child(4)');
+
+        let matchesStatus = (selectedStatus === 'all') ||
+          (statusSpan && statusSpan.textContent.includes(selectedStatus));
+
+        let matchesSearch = (searchTerm === '') ||
+          (namaCell && namaCell.textContent.toLowerCase().includes(searchTerm)) ||
+          (emailCell && emailCell.textContent.toLowerCase().includes(searchTerm)) ||
+          (phoneCell && phoneCell.textContent.toLowerCase().includes(searchTerm)) ||
+          (jenisCell && jenisCell.textContent.toLowerCase().includes(searchTerm));
+
+        row.style.display = (matchesStatus && matchesSearch) ? '' : 'none';
+      });
+    }
+
+    filterSelect.addEventListener('change', filterTable);
+    searchInput.addEventListener('keyup', filterTable);
+
+    // =========================================================
+    // MODAL DETAIL
+    // =========================================================
+    const modal = document.getElementById('detailModal');
+    const modalBody = document.getElementById('modalBody');
+    const closeBtn = document.querySelector('.close-modal');
+
+    function openModal(id) {
+      const data = detailData[id];
+      if (!data) return;
+
+      const statusClass = data.status.includes('Tinggi') ? 'status-proses' :
+        data.status.includes('Sedang') ? 'status-proses' : 'status-selesai';
+      const statusIcon = data.status.includes('Normal') ?
+        '<i class="fas fa-check-circle"></i>' :
+        '<i class="fas fa-spinner"></i>';
+      const reguText = data.regu && data.regu !== '-' ? data.regu : 'Belum ditugaskan';
+      const selesaiText = data.selesai
+        ? '<span style="background:#dcfce7;color:#166534;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">✓ Selesai</span>'
+        : '<span style="background:#fef3c7;color:#92400e;padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;">⏳ Belum Selesai</span>';
+
+      modalBody.innerHTML = `
+        <div class="detail-section">
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-user"></i> Nama Pelapor</div><div class="detail-value">${data.nama}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-envelope"></i> Email</div><div class="detail-value">${data.email}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-phone-alt"></i> Telepon</div><div class="detail-value">${data.telepon}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-tag"></i> Status</div><div class="detail-value"><span class="${statusClass}">${statusIcon} ${data.status}</span></div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-fire"></i> Jenis</div><div class="detail-value">${data.jenis}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-users"></i> Regu</div><div class="detail-value"><span class="regu-detail">${reguText}</span></div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-clipboard-check"></i> Penyelesaian</div><div class="detail-value">${selesaiText}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-map-marker-alt"></i> Alamat</div><div class="detail-value alamat-detail">${data.alamat}</div></div>
+            <div class="detail-group full-width"><div class="detail-label"><i class="fas fa-history"></i> Kronologi</div><div class="detail-value kronologi-detail">${data.kronologi}</div></div>
+        </div>
+        `;
+      modal.style.display = 'flex';
+    }
+
+    document.querySelectorAll('.btn-detail').forEach(btn => {
+      btn.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openModal(this.getAttribute('data-id'));
+      });
+    });
+
+    closeBtn.addEventListener('click', () => modal.style.display = 'none');
+    window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+
+    // =========================================================
+    // ASSIGN REGU
+    // =========================================================
+    document.querySelectorAll('.regu-select').forEach(select => {
+      if (select.value) select.classList.add('assigned');
+
+      select.addEventListener('change', async function () {
+        const reportId = this.getAttribute('data-id');
+        const regu = this.value;
+
+        if (!regu) return;
+
+        const confirmAssign = window.confirm(`Tugaskan ${regu} ke laporan ini?`);
+        if (!confirmAssign) { this.value = ''; return; }
+
+        try {
+          const res = await fetch('/api/assign-regu', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ report_id: reportId, regu: regu }),
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            this.classList.add('assigned');
+            showToast(`✓ ${data.message}`, 'success');
+          } else {
+            showToast(`✗ ${data.message}`, 'error');
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Gagal menugaskan regu', 'error');
+        }
+      });
+    });
+
+    // =========================================================
+    // TOGGLE SELESAI
+    // =========================================================
+    document.querySelectorAll('.selesai-select').forEach(select => {
+      if (select.value === 'selesai') select.classList.add('selesai');
+
+      select.addEventListener('change', async function () {
+        const reportId = this.getAttribute('data-id');
+        const isSelesai = this.value === 'selesai';
+
+        try {
+          const res = await fetch('/api/toggle-selesai', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ report_id: reportId, selesai: isSelesai }),
+          });
+          const data = await res.json();
+
+          if (data.success) {
+            if (isSelesai) {
+              this.classList.add('selesai');
+              showToast('✓ Laporan ditandai selesai', 'success');
+            } else {
+              this.classList.remove('selesai');
+              showToast('⏳ Laporan ditandai belum selesai', 'success');
+            }
+          } else {
+            showToast(`✗ ${data.message}`, 'error');
+          }
+        } catch (err) {
+          console.error(err);
+          showToast('Gagal memperbarui status', 'error');
+        }
+      });
+    });
+
+    // =========================================================
+    // TOAST HELPER
+    // =========================================================
+    function showToast(message, type = 'success') {
+      const toast = document.createElement('div');
+      toast.textContent = message;
+      toast.style.cssText = `
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 14px 20px;
+            border-radius: 12px;
+            background: ${type === 'success' ? '#dcfce7' : '#fee2e2'};
+            color: ${type === 'success' ? '#166534' : '#991b1b'};
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+            z-index: 9999;
+            animation: slideIn 0.3s ease;
+        `;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.animation = 'slideOut 0.3s ease';
+        setTimeout(() => toast.remove(), 300);
+      }, 2500);
+    }
+
+    const styleAnim = document.createElement('style');
+    styleAnim.textContent = `
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        @keyframes slideOut {
+            from { transform: translateX(0); opacity: 1; }
+            to { transform: translateX(100%); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(styleAnim);
+  </script>
+  <label for="sidebarToggle" class="overlay" aria-label="Tutup sidebar"></label>
+</body>
+
+</html>

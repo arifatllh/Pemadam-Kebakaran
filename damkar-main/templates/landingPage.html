@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Damkar.Sub — Layanan Pemadam Kebakaran Surabaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body class="page-landing">
+
+  <div id="zoom-overlay" onclick="closeAnyZoom()"></div>
+
+  <!--  NAVBAR  -->
+  <nav>
+    <a href="{{ url_for('landing') }}" class="nav-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11zm0 16a4 4 0 01-4-4c0-1.8.9-3.6 2.3-5.5.7 1.8 1.2 3.5 1.7 3.5s1-1.7 1.7-3.5C15.1 10.4 16 12.2 16 14a4 4 0 01-4 4z" />
+        </svg>
+      </div>
+      Damkar.Sub
+    </a>
+    <div class="nav-right">
+      <a href="#kontak" class="nav-btn nav-btn-outline">Hubungi</a>
+      <a href="{{ url_for('login') }}" class="nav-btn nav-btn-red">Login Admin</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-content">
+      <h1>Layanan Pemadam<br />Kebakaran</h1>
+      <p>Sistem informasi terpadu untuk manajemen data pemadam kebakaran dan lokasi hidran di seluruh Kota Surabaya.</p>
+      <div class="hero-actions">
+        <a href="tel:112" class="hero-btn hero-btn-red">📞 Telepon 112 (Darurat)</a>
+        <a href="#contact-form" class="hero-btn hero-btn-outline">Kirim Pesan</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS STRIP  -->
+  <div class="stats-strip">
+    <div class="stat-cell">
+      <div class="stat-lbl">Pos Pemadam</div>
+      <div class="stat-val" data-target="17" data-duration="1000" data-direction="down">17</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-lbl">Laporan Tertangani</div>
+      <div class="stat-val" data-target="12436" data-duration="2500" data-direction="down">12.436</div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-lbl">Respon Rata‑Rata</div>
+      <div class="stat-val" data-target="7" data-suffix=" menit" data-duration="1500" data-direction="down">7 menit
+      </div>
+    </div>
+    <div class="stat-cell">
+      <div class="stat-lbl">Cakupan Wilayah</div>
+      <div class="stat-val" data-target="32" data-suffix=" kecamatan" data-duration="2000" data-direction="down">32
+        kecamatan</div>
+    </div>
+  </div>
+
+  <!-- LAYANAN UTAMA  -->
+  <section class="section">
+    <div class="layanan-utama-grid">
+
+      <!-- Services -->
+      <div>
+        <div class="section-head">
+          <h2 class="section-title">Layanan Utama</h2>
+        </div>
+        <div class="svc-row">
+          <div class="svc-card">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11z" />
+              </svg>
+            </div>
+            <div class="svc-name">Pemadaman</div>
+            <div class="svc-desc">Penanganan Kebakaran Secara Langsung di Lokasi</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M13 2L3 14h9l-1 8 10-12h-9z" />
+              </svg>
+            </div>
+            <div class="svc-name">Evakuasi</div>
+            <div class="svc-desc">Penyelamatan Jiwa dari Area Terdampak Bencana</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4m0 4h.01" stroke="#CC2929" stroke-width="2" stroke-linecap="round" fill="none" />
+              </svg>
+            </div>
+            <div class="svc-name">Penanganan Bahan Berbahaya</div>
+            <div class="svc-desc">Penanganan Tumpahan Bahan Kimia, Material Beracun, dan Kebocoran Gas</div>
+          </div>
+          <div class="svc-card">
+            <div class="svc-icon">
+              <svg viewBox="0 0 24 24">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+            </div>
+            <div class="svc-name">Edukasi</div>
+            <div class="svc-desc">Pencegahan Dini Kebakaran bagi Masyarakat Umum</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Berita -->
+      <div class="news-box">
+        <div class="news-title">Berita</div>
+        <ul class="news-list">
+          <li class="news-item">
+            <div class="n-dot"></div>
+            <div>
+              <a href="https://surabaya.go.id/id/berita/24937/evakuasi-mendominasi-damkar-surabaya-tangani-77-kejadian-selama-libur-lebaran-2026"
+                class="n-text" target="_blank">Evakuasi Mendominasi, Damkar Surabaya Tangani 77 Kejadian Selama Libur
+                Lebaran 2026</a>
+              <div class="n-date">27 Maret 2026</div>
+            </div>
+          </li>
+          <li class="news-item">
+            <div class="n-dot"></div>
+            <div>
+              <a href="https://jatim.antaranews.com/berita/1058135/dpkp-surabaya-penanganan-kebakaran-pabrik-selotip-lebih-dari-15-jam"
+                class="n-text" target="_blank">DPKP Surabaya: Penanganan kebakaran pabrik selotip lebih dari 15 jam</a>
+              <div class="n-date">17 April 2026 </div>
+            </div>
+          </li>
+          <li class="news-item">
+            <div class="n-dot"></div>
+            <div>
+              <a href="https://www.babelinsight.id/balita-terkunci-mobil-surabaya-evakuasi-airbag" class="n-text"
+                target="_blank">Balita Terkunci di Mobil Surabaya Dievakuasi Dramatis Menggunakan Airbag</a>
+              <div class="n-date">28 April 2026</div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYANAN PUBLIK -->
+  <section class="section" style="padding-top:0;">
+    <div class="section-head">
+      <h2 class="section-title">Layanan Publik</h2>
+    </div>
+    <div class="publik-grid">
+      <div class="publik-card">
+        <div class="publik-name">Pemadaman Kebakaran</div>
+        <div class="publik-desc">Respons Darurat Pemadam di Seluruh Kota Surabaya</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=pemadaman'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Penyelamatan dan Evakuasi</div>
+        <div class="publik-desc">Penyelamatan dan Evakuasi Cepat Warga dari Zona Berbahaya</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=evakuasi'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Inspeksi dan Proteksi</div>
+        <div class="publik-desc">Audit Sistem Proteksi Kebakaran pada Gedung dan Fasilitas Umum</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=inspeksi'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Edukasi</div>
+        <div class="publik-desc">Sosialisasi dan Pelatihan Penggunaan APAR, Evakuasi Darurat, serta Simulasi Kebakaran
+        </div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=edukasi'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Penyelamatan dan Evakuasi Hewan</div>
+        <div class="publik-desc">Penyelamatan dan Penanganan Evakuasi Hewan Berbahaya</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=hewan'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Bantuan Kecelakaan</div>
+        <div class="publik-desc">Pertolongan Pertama bagi Korban di Lokasi Kejadian</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=kecelakaan'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Sertifikasi Keselamatan</div>
+        <div class="publik-desc">Konsultasi dan Penerbitan Sertifikat Laik Fungsi Sistem Proteksi Kebakaran</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=sertifikasi'">Lihat
+          Detail</button>
+      </div>
+      <div class="publik-card">
+        <div class="publik-name">Pelatihan Relawan dan Masyarakat</div>
+        <div class="publik-desc">Pelatihan Penggunaan APAR, Evakuasi Darurat, dan Simulasi Kebakaran</div>
+        <button class="btn-detail" onclick="window.location.href='{{ url_for('detail_layanan') }}?id=pelatihan'">Lihat
+          Detail</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="section edukasi-section">
+    <div class="section-head">
+      <h2 class="section-title">Edukasi dan Pencegahan</h2>
+    </div>
+
+    <div class="edu-tabs">
+      <button class="edu-tab active" onclick="setTab(this)">Semua</button>
+      <button class="edu-tab" onclick="setTab(this); toggleAparZoom(event)">APAR</button>
+      <button class="edu-tab" onclick="setTab(this); toggleFaqZoom(event)">FAQ</button>
+    </div>
+
+    <!-- BARIS 1: 3 edu card + panduan -->
+    <div class="edu-main-grid">
+      <div class="edu-card">
+        <div class="edu-img edu-img-1"></div>
+        <div class="edu-body">
+          <div class="edu-cat">Evakuasi</div>
+          <div class="edu-ttl">Simulasi Evakuasi Gedung Pemerintah</div>
+          <button class="btn-baca"
+            onclick="window.location.href='{{ url_for('detail_edukasi') }}?id=evakuasi-gedung'">Baca Detail →
+          </button>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-img edu-img-2"></div>
+        <div class="edu-body">
+          <div class="edu-cat">Gas</div>
+          <div class="edu-ttl">Respon Cepat Kebocoran Gas di Pemukiman</div>
+          <button class="btn-baca"
+            onclick="window.location.href='{{ url_for('detail_edukasi') }}?id=kebocoran-gas'">Baca Detail →
+          </button>
+        </div>
+      </div>
+
+      <div class="edu-card">
+        <div class="edu-img edu-img-3"></div>
+        <div class="edu-body">
+          <div class="edu-cat">APAR</div>
+          <div class="edu-ttl">Pemeriksaan APAR di Kawasan Industri</div>
+          <button class="btn-baca"
+            onclick="window.location.href='{{ url_for('detail_edukasi') }}?id=pemeriksaan-apar'">Baca Detail →
+          </button>
+        </div>
+      </div>
+
+      <!-- Panduan (pojok kanan baris 1) -->
+      <div class="edu-aside">
+        <div class="panduan-card" id="apar-card">
+          <div class="panduan-img"></div>
+          <div class="panduan-ttl">Panduan Penggunaan APAR</div>
+          <button class="btn-baca" onclick="window.location.href='{{ url_for('detail_edukasi') }}?id=panduan-apar'">Baca
+            Detail
+            →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- BARIS 2: checklist + faq -->
+    <div class="edu-bottom-grid">
+      <div class="checklist-card">
+        <div class="checklist-ttl">Checklist Keamanan Rumah &amp; Gedung</div>
+        <ul class="checklist-cols">
+          <li>Periksa tabung gas dan regulatornya secara berkala</li>
+          <li>Pastikan APAR mudah dijangkau dan tidak kadaluarsa</li>
+          <li>Jaga akses evakuasi tetap terbuka dan bebas hambatan</li>
+          <li>Lakukan simulasi minimal 2 kali setahun bersama penghuni</li>
+        </ul>
+      </div>
+
+      <div class="faq-card" id="faq-card">
+        <div class="faq-ttl">FAQ Kebakaran</div>
+        <ul class="faq-list">
+          <li><a href="" class="n-text" target="_blank">Bagaimana cara melapor kebakaran?</a></li>
+          <li><a href="" class="n-text" target="_blank">Apa yang dilakukan saat api mulai membesar?</a></li>
+          <li><a href="" class="n-text" target="_blank">Kapan APAR harus diperiksa ulang?</a></li>
+          <li><a href="" class="n-text" target="_blank">Bagaimana melindungi anak saat evakuasi?</a></li>
+        </ul>
+      </div>
+    </div>
+
+  </section>
+
+  <!--KONTAK KAMI-->
+  <section id="kontak" class="kontak-section">
+    <h2 class="section-title">KONTAK KAMI</h2>
+
+    <div>
+      <div class="hotline-block">
+        <div class="hotline-lbl">Darurat? Hubungi</div>
+        <a href="tel:112" class="hotline-num">112</a>
+        <div class="hotline-cta">SEKARANG JUGA</div>
+      </div>
+    </div>
+
+    <p class="hotline-note">
+      Gunakan layanan darurat hanya untuk kejadian yang sebenarnya. Laporan palsu dapat menghambat penanganan keadaan
+      darurat lainnya.
+    </p>
+
+    <p class="kontak-sub">
+      Untuk pertanyaan, saran, permintaan inspeksi, edukasi, atau sertifikasi — silakan hubungi kami melalui form
+      berikut:
+    </p>
+
+    <div class="contact-wrap">
+      <div class="contact-img"></div>
+
+      <div class="contact-form-wrapper">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        {% for category, message in messages %}
+        <div
+          style="padding:14px 18px;border-radius:12px;margin-bottom:20px;background:#dcfce7;color:#166534;font-weight:600;border:1px solid #86efac;text-align:center;">
+          ✓ {{ message }}
+        </div>
+        {% endfor %}
+        {% endif %}
+        {% endwith %}
+
+        <form id="contact-form" class="contact-form" method="POST" action="{{ url_for('kirim_pesan') }}">
+          <div class="form-row">
+            <input class="finput" type="text" name="nama" placeholder="Nama Lengkap" required />
+            <select class="fselect" name="kategori" required>
+              <option value="" disabled selected>Kategori Pesan</option>
+              <option value="pertanyaan">Pertanyaan Umum</option>
+              <option value="saran">Saran &amp; Masukan</option>
+              <option value="inspeksi">Permintaan Inspeksi</option>
+              <option value="edukasi">Permintaan Edukasi / Pelatihan</option>
+              <option value="sertifikasi">Sertifikasi Keselamatan</option>
+              <option value="lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <input class="finput" type="email" name="email" placeholder="E-mail" required />
+            <input class="finput" type="text" name="subjek" placeholder="Subjek Pesan" required />
+          </div>
+          <div class="form-row">
+            <input class="finput" type="tel" name="telepon" placeholder="Nomor Telepon" required />
+            <input class="finput" type="file" title="Upload File (Opsional)" />
+          </div>
+          <textarea class="ftextarea" name="deskripsi" placeholder="Ketik Pesan Di Sini...." required></textarea>
+          <button type="submit" class="btn-send">Kirim Pesan →</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!--FOOTER-->
+  <footer>
+    <div class="ft-brand">
+      <div class="nav-logo" style="margin-bottom:10px;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11z" />
+          </svg>
+        </div>
+        Damkar.Sub
+      </div>
+      <p>Sistem informasi terpadu pemadam kebakaran dan hidran Kota Surabaya.</p>
+    </div>
+
+    <div class="ft-col">
+      <div class="ft-col-title">Alamat</div>
+      <p>Jl. Pasar Turi No.21, Bubutan –<br />Surabaya, Jawa Timur</p>
+    </div>
+
+    <div class="ft-col">
+      <div class="ft-col-title">Kontak</div>
+      <a href="mailto:dinas.kebakaran@gmail.com">dinas.kebakaran@gmail.com</a>
+      <a href="tel:112">112 (Darurat)</a>
+      <a href="https://wa.me/6281131112112">0811 3111 2112 (Kantor)</a>
+      <div class="ft-col-title" style="margin-top:14px;">Media Sosial</div>
+      <div class="social-row">
+        <div class="social-btn" title="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+          </svg>
+        </div>
+        <div class="social-btn" title="Instagram">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="rgba(255,255,255,.7)"
+              stroke-width="2" />
+            <circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,.7)" />
+          </svg>
+        </div>
+        <div class="social-btn" title="YouTube">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1A1E24" />
+          </svg>
+        </div>
+        <div class="social-btn" title="Twitter/X">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <span>© 2026 Dinas Pemadam Kebakaran Kota Surabaya. Seluruh Hak Cipta Dilindungi.</span>
+    <span>v2.1.0</span>
+  </div>
+
+  <script>
+    /* Tab toggle */
+    function setTab(el) {
+      document.querySelectorAll('.edu-tab').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+
+    let isFaqZoomed = false;
+    let faqPlaceholder = null;
+
+    let isAparZoomed = false;
+    let aparPlaceholder = null;
+
+    function closeAnyZoom() {
+      if (isFaqZoomed) toggleFaqZoom();
+      if (isAparZoomed) toggleAparZoom();
+    }
+
+    function toggleAparZoom(e) {
+      if (e) e.preventDefault();
+      const card = document.getElementById('apar-card');
+      const overlay = document.getElementById('zoom-overlay');
+
+      if (!isAparZoomed) {
+        const rect = card.getBoundingClientRect();
+
+        aparPlaceholder = document.createElement('div');
+        aparPlaceholder.style.width = rect.width + 'px';
+        aparPlaceholder.style.height = rect.height + 'px';
+        card.parentNode.insertBefore(aparPlaceholder, card);
+
+        card.style.position = 'fixed';
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.width = rect.width + 'px';
+        card.style.height = rect.height + 'px';
+        card.style.margin = '0';
+        card.style.zIndex = '10000';
+        card.style.boxShadow = '0 20px 50px rgba(0,0,0,0.3)';
+        card.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        card.offsetHeight;
+
+        card.style.top = '50%';
+        card.style.left = '50%';
+        card.style.transform = 'translate(-50%, -50%) scale(1.3)';
+
+        isAparZoomed = true;
+      } else {
+        if (!aparPlaceholder) return;
+        const rect = aparPlaceholder.getBoundingClientRect();
+
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.transform = 'translate(0, 0) scale(1)';
+        card.style.boxShadow = 'none';
+
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          if (!isAparZoomed) {
+            card.style.position = '';
+            card.style.top = '';
+            card.style.left = '';
+            card.style.width = '';
+            card.style.height = '';
+            card.style.margin = '';
+            card.style.zIndex = '';
+            card.style.transform = '';
+            card.style.transition = '';
+            card.style.boxShadow = '';
+
+            if (aparPlaceholder && aparPlaceholder.parentNode) {
+              aparPlaceholder.parentNode.removeChild(aparPlaceholder);
+            }
+            aparPlaceholder = null;
+          }
+        }, 500);
+
+        isAparZoomed = false;
+      }
+    }
+
+    function toggleFaqZoom(e) {
+      if (e) e.preventDefault();
+      const card = document.getElementById('faq-card');
+      const overlay = document.getElementById('zoom-overlay');
+
+      if (!isFaqZoomed) {
+        const rect = card.getBoundingClientRect();
+
+        faqPlaceholder = document.createElement('div');
+        faqPlaceholder.style.width = rect.width + 'px';
+        faqPlaceholder.style.height = rect.height + 'px';
+        card.parentNode.insertBefore(faqPlaceholder, card);
+
+        card.style.position = 'fixed';
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.width = rect.width + 'px';
+        card.style.height = rect.height + 'px';
+        card.style.margin = '0';
+        card.style.zIndex = '10000';
+        card.style.boxShadow = '0 20px 50px rgba(0,0,0,0.3)';
+        card.style.transition = 'all 0.5s cubic-bezier(0.25, 1, 0.5, 1)';
+
+        overlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+
+        card.offsetHeight;
+
+        card.style.top = '50%';
+        card.style.left = '50%';
+        card.style.transform = 'translate(-50%, -50%) scale(1.3)';
+
+        isFaqZoomed = true;
+      } else {
+        if (!faqPlaceholder) return;
+        const rect = faqPlaceholder.getBoundingClientRect();
+
+        card.style.top = rect.top + 'px';
+        card.style.left = rect.left + 'px';
+        card.style.transform = 'translate(0, 0) scale(1)';
+        card.style.boxShadow = 'none';
+
+        overlay.classList.remove('active');
+        document.body.style.overflow = '';
+
+        setTimeout(() => {
+          if (!isFaqZoomed) {
+            card.style.position = '';
+            card.style.top = '';
+            card.style.left = '';
+            card.style.width = '';
+            card.style.height = '';
+            card.style.margin = '';
+            card.style.zIndex = '';
+            card.style.transform = '';
+            card.style.transition = '';
+            card.style.boxShadow = '';
+
+            if (faqPlaceholder && faqPlaceholder.parentNode) {
+              faqPlaceholder.parentNode.removeChild(faqPlaceholder);
+            }
+            faqPlaceholder = null;
+          }
+        }, 500);
+
+        isFaqZoomed = false;
+      }
+    }
+  </script>
+
+  <script>
+    function animateCount(el, target, duration) {
+      const suffix = el.dataset.suffix || '';
+      let start = 0;
+      const step = target / (duration / 16);
+      const timer = setInterval(() => {
+        start += step;
+        if (start >= target) {
+          start = target;
+          clearInterval(timer);
+        }
+        el.textContent = Math.floor(start).toLocaleString('id-ID') + suffix;
+      }, 16);
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const el = entry.target;
+          const target = parseInt(el.dataset.target);
+          const duration = parseInt(el.dataset.duration) || 2000;
+          const direction = el.dataset.direction || 'up';
+
+          el.style.transition = 'none';
+          el.style.opacity = '0';
+          el.style.transform = direction === 'down' ? 'translateY(-30px)' : 'translateY(30px)';
+
+          setTimeout(() => {
+            el.style.transition = `opacity 0.6s ease, transform 0.6s ease`;
+            el.style.opacity = '1';
+            el.style.transform = 'translateY(0)';
+            animateCount(el, target, duration);
+          }, 100);
+
+          observer.unobserve(el);
+        }
+      });
+    });
+
+    document.querySelectorAll('.stat-val').forEach(el => observer.observe(el));
+  </script>
+</body>
+
+</html>

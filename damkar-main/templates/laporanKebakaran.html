@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Laporan Kebakaran</title>
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='favicon.png') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style_laporan_patch.css') }}" />
+</head>
+
+<body class="page-laporan-kebakaran">
+  <input type="checkbox" id="sidebarToggle" class="sidebar-toggle" />
+
+  <div class="app">
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <a href="{{ url_for('dashboard') }}" class="brand" aria-label="Damkar.Sub Admin Panel">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12.2 2.2c.7 2.1.2 3.8-.9 5.2-.7.9-1.1 1.6-.8 2.5.5-.6 1.1-1.1 1.9-1.6 1.7-1.1 2.5-2.7 2.2-4.6 3.9 2.5 6.2 6.1 6.2 10.1 0 4.4-3.6 8-8.4 8s-8.4-3.6-8.4-8c0-2.9 1.5-5.3 3.4-7.1-.1 1.5.3 2.7 1.3 3.8.2-1.8 1.2-3.3 2.2-4.5.9-1.1 1.6-2.2 1.3-3.8Z" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <strong>Damkar.Sub</strong>
+              <span>Admin Panel</span>
+            </div>
+          </a>
+
+          <label for="sidebarToggle" class="menu-button" aria-label="Tutup sidebar">
+            <span></span>
+          </label>
+        </div>
+
+        <p class="nav-section-title">Menu Utama</p>
+
+        <nav class="nav-menu" aria-label="Navigasi admin">
+          <a href="{{ url_for('dashboard') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-16v5h7V4h-7Z" />
+            </svg>
+            Dashboard
+          </a>
+          <a href="{{ url_for('laporan_kebakaran') }}" class="nav-link active">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+            </svg>
+            Laporan Kebakaran
+          </a>
+          <a href="{{ url_for('tracking_laporan') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2a8 8 0 0 0-8 8c0 5.3 8 12 8 12s8-6.7 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+            </svg>
+            Tracking Laporan
+          </a>
+          <a href="{{ url_for('data_laporan') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h16v4H4V4Zm0 6h16v4H4v-4Zm0 6h16v4H4v-4Z" />
+            </svg>
+            Manajemen Data
+          </a>
+          <a href="{{ url_for('pesan_kontak_page') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            Pesan Masuk
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar">P</div>
+          <div class="user-info">
+            <strong>Petugas Admin</strong>
+            <span>Command Center</span>
+          </div>
+        </div>
+        <a class="logout-btn" href="{{ url_for('logout') }}"
+          style="display:flex;align-items:center;justify-content:center;text-decoration:none;">Logout</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="admin-page-header">
+        <div class="topbar-left">
+          <label for="sidebarToggle" class="mobile-open" aria-label="Buka sidebar">
+            <span></span>
+          </label>
+
+          <div class="page-title">
+            <h1>Input Laporan Kebakaran</h1>
+            <p>Masukkan parameter kejadian untuk membantu penentuan prioritas respons petugas.</p>
+          </div>
+        </div>
+
+        <a class="create-btn" href="{{ url_for('data_laporan') }}">Lihat Data</a>
+      </header>
+
+      <section class="report-workspace" aria-labelledby="reportFormTitle">
+        <div class="report-form-panel">
+          <div class="report-card-head">
+            <div>
+              <span class="eyebrow">Form Operasional</span>
+              <h2 id="reportFormTitle">Laporan Kondisi Kebakaran</h2>
+              <p>Data berikut digunakan untuk membaca tingkat bahaya awal dan mendukung keputusan dispatch.</p>
+            </div>
+
+            <div class="report-id-preview" aria-label="Nomor laporan sementara">
+              <span>No. Draft</span>
+              <strong id="draftNumber">FR-DRAFT</strong>
+            </div>
+          </div>
+
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+          <div class="flash-stack" role="status" aria-live="polite">
+            {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+          </div>
+          {% endif %}
+          {% endwith %}
+
+          {% if form_error %}
+          <div class="flash-stack" role="status" aria-live="polite">
+            <div class="flash-message error">
+              <strong>⚠ {{ form_error }}</strong>
+              {% if form_error_missing %}
+              <ul style="margin:8px 0 0 20px;font-size:13px;">
+                {% for field in form_error_missing %}
+                <li>Field <code>{{ field }}</code> belum diisi</li>
+                {% endfor %}
+              </ul>
+              {% endif %}
+            </div>
+          </div>
+          {% endif %}
+
+          <form id="reportForm" class="incident-form" method="POST" action="" novalidate>
+            <div class="form-grid">
+
+              <div class="field-group">
+                <label for="nama">Nama Pelapor</label>
+                <input id="nama" name="nama" type="text" placeholder="Nama lengkap"
+                  value="{{ form_data.nama if form_data else '' }}" required>
+                <small>Nama orang yang melaporkan kejadian.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="telepon">Nomor Telepon</label>
+                <input id="telepon" name="telepon" type="tel" placeholder="08xxxxxxxxxx"
+                  value="{{ form_data.telepon if form_data else '' }}" required>
+                <small>Nomor yang bisa dihubungi petugas.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="email">Email</label>
+                <input id="email" name="email" type="email" placeholder="nama@email.com"
+                  value="{{ form_data.email if form_data else '' }}">
+                <small>Opsional, untuk konfirmasi laporan.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="lokasi">Lokasi Kejadian</label>
+                <input id="lokasi" name="lokasi" type="text" placeholder="Contoh: Jl. Ahmad Yani No. 10"
+                  value="{{ form_data.lokasi if form_data else '' }}" required>
+                <small>Alamat singkat lokasi kejadian.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="skala_api">Skala Api</label>
+                <select id="skala_api" name="skala_api" required>
+                  <option value="" disabled {% if not form_data or not form_data.skala_api %}selected{% endif %}>Pilih
+                    skala api</option>
+                  <option value="kecil" {% if form_data and form_data.skala_api=='kecil' %}selected{% endif %}>Kecil -
+                    titik api terbatas</option>
+                  <option value="sedang" {% if form_data and form_data.skala_api=='sedang' %}selected{% endif %}>Sedang
+                    - api mulai menyebar</option>
+                  <option value="besar" {% if form_data and form_data.skala_api=='besar' %}selected{% endif %}>Besar -
+                    area luas terdampak</option>
+                  <option value="sangat_besar" {% if form_data and form_data.skala_api=='sangat_besar' %}selected{%
+                    endif %}>Sangat besar - situasi kritis</option>
+                </select>
+                <small>Menunjukkan tingkat intensitas api pada lokasi kejadian.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="korban_terjebak">Korban Terjebak</label>
+                <select id="korban_terjebak" name="korban_terjebak" required>
+                  <option value="" disabled {% if not form_data or not form_data.korban_terjebak %}selected{% endif %}>
+                    Pilih kondisi korban</option>
+                  <option value="0" {% if form_data and form_data.korban_terjebak=='0' %}selected{% endif %}>Tidak ada
+                    korban terjebak</option>
+                  <option value="1" {% if form_data and form_data.korban_terjebak=='1' %}selected{% endif %}>Ada korban
+                    terjebak</option>
+                </select>
+                <small>Gunakan "ada" jika pelapor menyebut orang belum dapat keluar.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="jumlah_korban">Jumlah Korban</label>
+                <input id="jumlah_korban" name="jumlah_korban" type="number" min="0" step="1" inputmode="numeric"
+                  placeholder="Contoh: 0" value="{{ form_data.jumlah_korban if form_data else '' }}" required>
+                <small>Isi 0 jika belum ada korban yang terkonfirmasi.</small>
+              </div>
+
+              <div class="field-group">
+                <label for="jenis_bangunan">Jenis Bangunan</label>
+                <select id="jenis_bangunan" name="jenis_bangunan" required>
+                  <option value="" disabled {% if not form_data or not form_data.jenis_bangunan %}selected{% endif %}>
+                    Pilih jenis bangunan</option>
+                  <option value="rumah_tinggal" {% if form_data and form_data.jenis_bangunan=='rumah_tinggal'
+                    %}selected{% endif %}>Rumah Tinggal</option>
+                  <option value="ruko" {% if form_data and form_data.jenis_bangunan=='ruko' %}selected{% endif %}>Ruko /
+                    Tempat Usaha</option>
+                  <option value="gedung_bertingkat" {% if form_data and form_data.jenis_bangunan=='gedung_bertingkat'
+                    %}selected{% endif %}>Gedung Bertingkat</option>
+                  <option value="pabrik_gudang" {% if form_data and form_data.jenis_bangunan=='pabrik_gudang'
+                    %}selected{% endif %}>Pabrik / Gudang</option>
+                  <option value="fasilitas_umum" {% if form_data and form_data.jenis_bangunan=='fasilitas_umum'
+                    %}selected{% endif %}>Fasilitas Umum</option>
+                  <option value="lahan_terbuka" {% if form_data and form_data.jenis_bangunan=='lahan_terbuka'
+                    %}selected{% endif %}>Lahan / Area Terbuka</option>
+                </select>
+                <small>Kategori bangunan membantu memperkirakan risiko rambatan api.</small>
+              </div>
+
+              <div class="field-group wide-field">
+                <label for="kepadatan_lokasi">Kepadatan Lokasi</label>
+                <select id="kepadatan_lokasi" name="kepadatan_lokasi" required>
+                  <option value="" disabled {% if not form_data or not form_data.kepadatan_lokasi %}selected{% endif %}>
+                    Pilih kepadatan lokasi</option>
+                  <option value="rendah" {% if form_data and form_data.kepadatan_lokasi=='rendah' %}selected{% endif %}>
+                    Rendah - akses relatif mudah</option>
+                  <option value="sedang" {% if form_data and form_data.kepadatan_lokasi=='sedang' %}selected{% endif %}>
+                    Sedang - akses terbatas sebagian</option>
+                  <option value="tinggi" {% if form_data and form_data.kepadatan_lokasi=='tinggi' %}selected{% endif %}>
+                    Tinggi - padat penduduk / akses sempit</option>
+                </select>
+                <small>Semakin padat lokasi, semakin tinggi kebutuhan respons cepat dan evakuasi.</small>
+              </div>
+            </div>
+
+            <div class="form-alert" id="formAlert" role="alert" aria-live="polite"></div>
+
+            <div class="form-actions">
+              <button class="secondary-btn" type="reset">Reset Form</button>
+              <button class="primary-submit" type="submit">Simpan Laporan</button>
+            </div>
+          </form>
+        </div>
+
+        <aside class="report-side-panel" aria-label="Ringkasan prioritas laporan">
+
+          <div class="priority-card">
+            <div class="priority-top">
+              <span class="eyebrow">Prioritas Respon</span>
+              <span class="priority-badge" id="priorityBadge">Menunggu Input</span>
+            </div>
+
+            <h3 id="priorityTitle">Lengkapi Form</h3>
+            <p id="priorityText">
+              Sistem akan menampilkan ringkasan prioritas setelah data laporan diisi.
+            </p>
+
+            <div class="risk-meter" aria-hidden="true">
+              <span id="riskMeterBar"></span>
+            </div>
+
+            <div class="summary-list">
+              <div>
+                <span>Estimasi Risiko</span>
+                <strong id="riskScoreText">0 / 12</strong>
+              </div>
+              <div>
+                <span>Saran Tindakan</span>
+                <strong id="actionSuggestion">Input data dahulu</strong>
+              </div>
+              <div>
+                <span>Status Draft</span>
+                <strong>Siap dikirim ke Flask</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="guidance-card">
+            <h3>Catatan Input</h3>
+            <ul>
+              <li>Pastikan data korban tidak dikosongkan.</li>
+              <li>Pilih kepadatan lokasi berdasarkan akses kendaraan damkar.</li>
+              <li>Data ini dapat langsung dibaca Flask melalui <code>request.form</code>.</li>
+            </ul>
+          </div>
+
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const reportForm = document.getElementById('reportForm');
+    const formAlert = document.getElementById('formAlert');
+    const submitButton = reportForm.querySelector('.primary-submit');
+    const draftNumber = document.getElementById('draftNumber');
+
+    const fields = {
+      skalaApi: document.getElementById('skala_api'),
+      korbanTerjebak: document.getElementById('korban_terjebak'),
+      jumlahKorban: document.getElementById('jumlah_korban'),
+      jenisBangunan: document.getElementById('jenis_bangunan'),
+      kepadatanLokasi: document.getElementById('kepadatan_lokasi')
+    };
+
+    const priorityBadge = document.getElementById('priorityBadge');
+    const priorityTitle = document.getElementById('priorityTitle');
+    const priorityText = document.getElementById('priorityText');
+    const riskMeterBar = document.getElementById('riskMeterBar');
+    const riskScoreText = document.getElementById('riskScoreText');
+    const actionSuggestion = document.getElementById('actionSuggestion');
+
+    function createDraftNumber() {
+      const now = new Date();
+      const date = now.toISOString().slice(0, 10).replaceAll('-', '');
+      const random = Math.floor(1000 + Math.random() * 9000);
+      draftNumber.textContent = `FR-${date}-${random}`;
+    }
+
+    function calculateRiskScore() {
+      let score = 0;
+      const skalaScore = { kecil: 1, sedang: 2, besar: 3, sangat_besar: 4 };
+      score += skalaScore[fields.skalaApi.value] || 0;
+
+      if (fields.korbanTerjebak.value === '1') score += 4;
+
+      const korban = Number(fields.jumlahKorban.value || 0);
+      if (korban >= 1 && korban <= 3) score += 2;
+      if (korban >= 4) score += 4;
+
+      if (['gedung_bertingkat', 'pabrik_gudang'].includes(fields.jenisBangunan.value)) score += 2;
+      if (fields.jenisBangunan.value === 'fasilitas_umum') score += 1;
+
+      if (fields.kepadatanLokasi.value === 'sedang') score += 1;
+      if (fields.kepadatanLokasi.value === 'tinggi') score += 2;
+
+      return Math.min(score, 12);
+    }
+
+    function updateRiskPreview() {
+      const score = calculateRiskScore();
+      const percent = Math.round((score / 12) * 100);
+
+      riskMeterBar.style.width = `${percent}%`;
+      riskScoreText.textContent = `${score} / 12`;
+
+      priorityBadge.classList.remove('low', 'medium', 'high');
+
+      if (score >= 9) {
+        priorityBadge.textContent = 'Prioritas Tinggi';
+        priorityBadge.classList.add('high');
+        priorityTitle.textContent = 'Respons Cepat Dibutuhkan';
+        priorityText.textContent = 'Terdapat indikator bahaya tinggi. Dispatch regu dan dukungan evakuasi perlu diprioritaskan.';
+        actionSuggestion.textContent = 'Kirim regu utama + evakuasi';
+      } else if (score >= 6) {
+        priorityBadge.textContent = 'Prioritas Sedang';
+        priorityBadge.classList.add('medium');
+        priorityTitle.textContent = 'Perlu Monitoring Ketat';
+        priorityText.textContent = 'Risiko berada pada tingkat sedang. Pastikan ketersediaan unit dan validasi kondisi lapangan.';
+        actionSuggestion.textContent = 'Kirim regu dan pantau situasi';
+      } else if (score > 0) {
+        priorityBadge.textContent = 'Prioritas Normal';
+        priorityBadge.classList.add('low');
+        priorityTitle.textContent = 'Risiko Awal Terkendali';
+        priorityText.textContent = 'Laporan tetap perlu ditangani, tetapi belum menunjukkan indikator bahaya tinggi.';
+        actionSuggestion.textContent = 'Validasi laporan dan siapkan unit';
+      } else {
+        priorityBadge.textContent = 'Menunggu Input';
+        priorityTitle.textContent = 'Lengkapi Form';
+        priorityText.textContent = 'Sistem akan menampilkan ringkasan prioritas setelah data laporan diisi.';
+        actionSuggestion.textContent = 'Input data dahulu';
+      }
+    }
+
+    Object.values(fields).forEach((field) => {
+      field.addEventListener('input', updateRiskPreview);
+      field.addEventListener('change', updateRiskPreview);
+    });
+
+    reportForm.addEventListener('reset', () => {
+      setTimeout(() => {
+        formAlert.classList.remove('show', 'error');
+        formAlert.textContent = '';
+        updateRiskPreview();
+      }, 0);
+    });
+
+    // Note: validasi JS dinonaktifkan — biarkan server yang handle
+    // supaya konsisten dengan konsep "selalu redirect".
+    reportForm.addEventListener('submit', function () {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Menyimpan...';
+    });
+
+    createDraftNumber();
+    updateRiskPreview();
+  </script>
+
+  <label for="sidebarToggle" class="overlay" aria-label="Tutup sidebar"></label>
+</body>
+
+</html>

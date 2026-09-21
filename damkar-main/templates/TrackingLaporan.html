@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Damkar.Sub – Tracking Laporan</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body class="page-tracking">
+  <input type="checkbox" id="sidebarToggle" class="sidebar-toggle" />
+
+  <aside class="sidebar" id="sidebar">
+    <div>
+      <div class="sidebar-header">
+        <a href="{{ url_for('dashboard') }}" class="brand" aria-label="Damkar.Sub Admin Panel">
+          <div class="brand-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12.2 2.2c.7 2.1.2 3.8-.9 5.2-.7.9-1.1 1.6-.8 2.5.5-.6 1.1-1.1 1.9-1.6 1.7-1.1 2.5-2.7 2.2-4.6 3.9 2.5 6.2 6.1 6.2 10.1 0 4.4-3.6 8-8.4 8s-8.4-3.6-8.4-8c0-2.9 1.5-5.3 3.4-7.1-.1 1.5.3 2.7 1.3 3.8.2-1.8 1.2-3.3 2.2-4.5.9-1.1 1.6-2.2 1.3-3.8Z" />
+            </svg>
+          </div>
+          <div class="brand-text">
+            <strong>Damkar.Sub</strong>
+            <span>Admin Panel</span>
+          </div>
+        </a>
+
+        <label for="sidebarToggle" class="menu-button" aria-label="Tutup sidebar">
+          <span></span>
+        </label>
+      </div>
+
+      <p class="nav-section-title">Menu Utama</p>
+
+      <nav class="nav-menu" aria-label="Navigasi admin">
+        <a href="{{ url_for('dashboard') }}" class="nav-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-16v5h7V4h-7Z" />
+          </svg>
+          Dashboard
+        </a>
+        <a href="{{ url_for('laporan_kebakaran') }}" class="nav-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+          </svg>
+          Laporan Kebakaran
+        </a>
+        <a href="{{ url_for('tracking_laporan') }}" class="nav-link active">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2a8 8 0 0 0-8 8c0 5.3 8 12 8 12s8-6.7 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+          </svg>
+          Tracking Laporan
+        </a>
+        <a href="{{ url_for('data_laporan') }}" class="nav-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M4 4h16v4H4V4Zm0 6h16v4H4v-4Zm0 6h16v4H4v-4Z" />
+          </svg>
+          Data Laporan
+        </a>
+        <a href="{{ url_for('pesan_kontak_page') }}" class="nav-link">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+          Pesan Masuk
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="avatar">P</div>
+        <div class="user-info">
+          <strong>Petugas Admin</strong>
+          <span>Command Center</span>
+        </div>
+      </div>
+
+      <a class="logout-btn" href="{{ url_for('login') }}"
+        style="display:flex;align-items:center;justify-content:center;text-decoration:none;">Logout</a>
+    </div>
+  </aside>
+
+  <main class="main">
+    <div class="topbar">
+      <div class="topbar-left">
+        <label for="sidebarToggle" class="mobile-open" aria-label="Buka sidebar"><span></span></label>
+
+        <div class="page-title-block">
+          <div>
+            <div class="page-title">Tracking</div>
+            <div class="page-title">Laporan</div>
+          </div>
+          <div class="title-divider"></div>
+          <div class="estimasi-block">
+            <span class="estimasi-label estimasi-label-big">Estimasi:</span>
+            <span class="estimasi-value estimasi-value-big">7 Menit</span>
+          </div>
+        </div>
+
+        <div class="topbar-estimasi-simple estimasi-block">
+          <span class="estimasi-label" style="font-size:17px; font-weight:700;">Estimasi:</span>
+          <span class="estimasi-value" style="font-size:30px;">7 Menit</span>
+        </div>
+      </div>
+
+      <div class="waktu-block">
+        <div class="waktu-label">Waktu Laporan</div>
+        <div class="waktu-time-row">
+          <span class="waktu-time">
+            {{ report.created_at.split('T')[1][:5] if report and report.created_at else '--:--' }}
+          </span>
+          <span class="waktu-day">
+            {{ report.created_at[:10] if report and report.created_at else '' }}
+          </span>
+        </div>
+        <div class="waktu-date">
+          {{ report.created_at[:10] if report and report.created_at else 'Belum ada laporan' }}
+        </div>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="map-container">
+        <div id="leaflet-map"></div>
+      </div>
+
+      <div class="info-card">
+        <div class="info-section">
+          <div class="info-label">Alamat</div>
+          <div class="info-value">{{ report.lokasi if report else 'Belum ada laporan' }}</div>
+        </div>
+        <div class="info-section">
+          <div class="info-label">Pelapor</div>
+          <div class="info-value">{{ report.nama if report else '-' }}</div>
+        </div>
+        <div class="info-section">
+          <div class="info-label">Perihal Laporan</div>
+          <div class="info-value">{{ report.jenis_bangunan | replace('_', ' ') | title if report else '-' }}</div>
+        </div>
+        <div class="info-section">
+          <div class="info-label">Status</div>
+          <div class="info-value">{{ report.status if report else '-' }}</div>
+        </div>
+
+        <div class="progress-section">
+          <div class="progress-label">Progres Laporan</div>
+          <div class="progress-bar">
+            <div class="dots-row">
+              <div class="dot done"></div>
+              <div class="connector solid"></div>
+              <div class="dot active"></div>
+              <div class="connector dashed"></div>
+              <div class="dot"></div>
+            </div>
+            <div class="labels-row">
+              <span class="step-label">Laporan Diterima</span>
+              <span class="step-label center">Menuju Lokasi</span>
+              <span class="step-label">Selesai Ditangani</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    function toggleSidebar() {
+      const toggle = document.getElementById('sidebarToggle');
+      if (toggle) toggle.checked = !toggle.checked;
+    }
+
+    const LAT = -7.2602;
+    const LNG = 112.7457;
+    const ZOOM = 15;
+
+    const map = L.map('leaflet-map', {
+      center: [LAT, LNG],
+      zoom: ZOOM,
+      zoomControl: true,
+      scrollWheelZoom: true,
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+      maxZoom: 19,
+    }).addTo(map);
+
+    const fireIcon = L.divIcon({
+      className: '',
+      html: `
+      <div style="position:relative;width:44px;height:54px;">
+        <svg width="44" height="54" viewBox="0 0 44 54" xmlns="http://www.w3.org/2000/svg">
+          <filter id="shadow">
+            <feDropShadow dx="0" dy="2" stdDeviation="3" flood-color="rgba(0,0,0,0.3)"/>
+          </filter>
+          <path d="M22 2 C10.95 2 2 10.95 2 22 C2 35 22 52 22 52 C22 52 42 35 42 22 C42 10.95 33.05 2 22 2Z"
+                fill="#e63030" filter="url(#shadow)"/>
+          <circle cx="22" cy="22" r="10" fill="white" opacity="0.95"/>
+        </svg>
+        <span style="position:absolute;top:16px;left:50%;transform:translateX(-50%);font-size:14px;line-height:1;">🔥</span>
+      </div>`,
+      iconSize: [44, 54],
+      iconAnchor: [22, 52],
+      popupAnchor: [0, -54],
+    });
+
+    const fireMarker = L.marker([LAT, LNG], { icon: fireIcon }).addTo(map);
+    fireMarker.bindPopup(`
+    <div style="font-family:'Plus Jakarta Sans',sans-serif;min-width:160px;">
+      <div style="font-weight:700;font-size:13px;color:#e63030;margin-bottom:4px;">🔥 Laporan</div>
+      <div style="font-size:12px;color:#444;margin-bottom:2px;"><b>Alamat:</b> {{ report.lokasi if report else "-" }}</div>
+      <div style="font-size:12px;color:#444;margin-bottom:2px;"><b>Pelapor:</b> {{ report.nama if report else "-" }}</div>
+      <div style="font-size:12px;color:#888;">{{ report.created_at if report else "-" }}</div>
+    </div>
+  `, { maxWidth: 220 }).openPopup();
+
+    const stationIcon = L.divIcon({
+      className: '',
+      html: `<div style="background:#1a1a1a;border:2.5px solid white;border-radius:50%;
+                       width:28px;height:28px;display:flex;align-items:center;
+                       justify-content:center;font-size:14px;
+                       box-shadow:0 2px 6px rgba(0,0,0,0.35);">🚒</div>`,
+      iconSize: [28, 28],
+      iconAnchor: [14, 14],
+    });
+
+    L.marker([-7.2488, 112.7378], { icon: stationIcon })
+      .addTo(map)
+      .bindPopup('<b style="font-family:sans-serif;font-size:12px;">🚒 Pos Damkar Surabaya</b>');
+
+    const routeCoords = [
+      [-7.2488, 112.7378],
+      [-7.2530, 112.7400],
+      [-7.2565, 112.7430],
+      [-7.2602, 112.7457],
+    ];
+
+    L.polyline(routeCoords, {
+      color: '#e63030',
+      weight: 4,
+      opacity: 0.75,
+      dashArray: '10 6',
+    }).addTo(map);
+
+    const sidebarToggleInput = document.getElementById('sidebarToggle');
+    if (sidebarToggleInput) {
+      sidebarToggleInput.addEventListener('change', () => {
+        setTimeout(() => map.invalidateSize(), 320);
+      });
+    }
+  </script>
+  <label for="sidebarToggle" class="overlay" aria-label="Tutup sidebar"></label>
+</body>
+
+</html>

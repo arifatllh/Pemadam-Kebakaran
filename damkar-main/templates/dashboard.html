@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard Admin - Damkar.Sub</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body class="page-dashboard">
+  <input type="checkbox" id="sidebarToggle" class="sidebar-toggle" />
+
+  <div class="dashboard">
+    <aside class="sidebar" id="sidebar">
+      <div>
+        <div class="sidebar-header">
+          <a href="{{ url_for('dashboard') }}" class="brand" aria-label="Damkar.Sub Admin Panel">
+            <div class="brand-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M12.2 2.2c.7 2.1.2 3.8-.9 5.2-.7.9-1.1 1.6-.8 2.5.5-.6 1.1-1.1 1.9-1.6 1.7-1.1 2.5-2.7 2.2-4.6 3.9 2.5 6.2 6.1 6.2 10.1 0 4.4-3.6 8-8.4 8s-8.4-3.6-8.4-8c0-2.9 1.5-5.3 3.4-7.1-.1 1.5.3 2.7 1.3 3.8.2-1.8 1.2-3.3 2.2-4.5.9-1.1 1.6-2.2 1.3-3.8Z" />
+              </svg>
+            </div>
+            <div class="brand-text">
+              <strong>Damkar.Sub</strong>
+              <span>Admin Panel</span>
+            </div>
+          </a>
+
+          <label for="sidebarToggle" class="menu-button" aria-label="Tutup sidebar">
+            <span></span>
+          </label>
+        </div>
+
+        <p class="nav-section-title">Menu Utama</p>
+
+        <nav class="nav-menu" aria-label="Navigasi admin">
+          <a href="{{ url_for('dashboard') }}" class="nav-link active">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-16v5h7V4h-7Z" />
+            </svg>
+            Dashboard
+          </a>
+          <a href="{{ url_for('laporan_kebakaran') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+            </svg>
+            Laporan Kebakaran
+          </a>
+          <a href="{{ url_for('tracking_laporan') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M12 2a8 8 0 0 0-8 8c0 5.3 8 12 8 12s8-6.7 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+            </svg>
+            Tracking Laporan
+          </a>
+          <a href="{{ url_for('data_laporan') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M4 4h16v4H4V4Zm0 6h16v4H4v-4Zm0 6h16v4H4v-4Z" />
+            </svg>
+            Data Laporan
+          </a>
+          <a href="{{ url_for('pesan_kontak_page') }}" class="nav-link">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+            </svg>
+            Pesan Masuk
+          </a>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="user-card">
+          <div class="avatar">P</div>
+          <div class="user-info">
+            <strong>Petugas Admin</strong>
+            <span>Command Center</span>
+          </div>
+        </div>
+
+        <a class="logout-btn" href="{{ url_for('login') }}"
+          style="display:flex;align-items:center;justify-content:center;text-decoration:none;">Logout</a>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="topbar-left">
+          <label for="sidebarToggle" class="mobile-open" aria-label="Buka sidebar">
+            <span></span>
+          </label>
+
+          <div class="page-title">
+            <h1>Dashboard Admin</h1>
+            <p>Ringkasan operasional dan monitoring laporan Damkar.Sub</p>
+          </div>
+        </div>
+
+        <div class="topbar-actions">
+          <div class="date-pill">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M7 2h2v2h6V2h2v2h3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h3V2Zm13 8H4v10h16V10Z" />
+            </svg>
+            Hari ini
+          </div>
+
+          <a class="create-btn" href="{{ url_for('laporan_kebakaran') }}">Buat Laporan</a>
+        </div>
+      </header>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <div class="stat-head">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M4 3h16v18H4V3Zm3 4v2h10V7H7Zm0 4v2h10v-2H7Zm0 4v2h6v-2H7Z" />
+              </svg>
+            </div>
+            <span class="stat-trend">+12%</span>
+          </div>
+          <div class="stat-value" id="statTotal">0</div>
+          <div class="stat-label">Laporan Masuk</div>
+          <div class="stat-sub">Total laporan hari ini</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-head">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 2a10 10 0 1 0 10 10h-3a7 7 0 1 1-7-7V2Zm1 1v10h8A8 8 0 0 0 13 3Z" />
+              </svg>
+            </div>
+            <span class="stat-trend">Live</span>
+          </div>
+          <div class="stat-value" id="statProses">0</div>
+          <div class="stat-label">Laporan Aktif</div>
+          <div class="stat-sub">Membutuhkan monitoring</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-head">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 16.2 4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2Z" />
+              </svg>
+            </div>
+            <span class="stat-trend">+8%</span>
+          </div>
+          <div class="stat-value" id="statSelesai">0</div>
+          <div class="stat-label">Selesai</div>
+          <div class="stat-sub">Laporan selesai hari ini</div>
+        </article>
+
+        <article class="stat-card">
+          <div class="stat-head">
+            <div class="stat-icon">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M16 11a4 4 0 1 0-8 0 4 4 0 0 0 8 0Zm-4 6c-4.4 0-8 2-8 4.5V22h16v-.5C20 19 16.4 17 12 17Zm8-10h-3V4h-2v3h-3v2h3v3h2V9h3V7Z" />
+              </svg>
+            </div>
+            <span class="stat-trend">Siaga</span>
+          </div>
+          <div class="stat-value" id="statTinggi">0</div>
+          <div class="stat-label">Prioritas Tinggi</div>
+          <div class="stat-sub">Aktif di lapangan</div>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <article class="panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <h2>Grafik Laporan Mingguan</h2>
+              <p>Perbandingan laporan masuk dan laporan selesai</p>
+            </div>
+
+            <select class="panel-filter">
+              <option>7 Hari Terakhir</option>
+              <option>30 Hari Terakhir</option>
+              <option>Bulan Ini</option>
+            </select>
+          </div>
+
+          <div class="chart-area">
+            <svg class="chart" viewBox="0 0 760 300" preserveAspectRatio="none" aria-label="Grafik laporan mingguan">
+              <line class="chart-grid" x1="40" y1="30" x2="730" y2="30" />
+              <line class="chart-grid" x1="40" y1="85" x2="730" y2="85" />
+              <line class="chart-grid" x1="40" y1="140" x2="730" y2="140" />
+              <line class="chart-grid" x1="40" y1="195" x2="730" y2="195" />
+              <line class="chart-grid" x1="40" y1="250" x2="730" y2="250" />
+
+              <rect class="bar" x="75" y="105" width="28" height="145" rx="7" />
+              <rect class="bar-soft" x="110" y="150" width="28" height="100" rx="7" />
+
+              <rect class="bar" x="175" y="70" width="28" height="180" rx="7" />
+              <rect class="bar-soft" x="210" y="120" width="28" height="130" rx="7" />
+
+              <rect class="bar" x="275" y="130" width="28" height="120" rx="7" />
+              <rect class="bar-soft" x="310" y="170" width="28" height="80" rx="7" />
+
+              <rect class="bar" x="375" y="55" width="28" height="195" rx="7" />
+              <rect class="bar-soft" x="410" y="100" width="28" height="150" rx="7" />
+
+              <rect class="bar" x="475" y="88" width="28" height="162" rx="7" />
+              <rect class="bar-soft" x="510" y="135" width="28" height="115" rx="7" />
+
+              <rect class="bar" x="575" y="45" width="28" height="205" rx="7" />
+              <rect class="bar-soft" x="610" y="92" width="28" height="158" rx="7" />
+
+              <polyline class="line" points="89,125 189,95 289,155 389,70 489,108 589,62 690,98" />
+              <circle class="dot" cx="89" cy="125" r="6" />
+              <circle class="dot" cx="189" cy="95" r="6" />
+              <circle class="dot" cx="289" cy="155" r="6" />
+              <circle class="dot" cx="389" cy="70" r="6" />
+              <circle class="dot" cx="489" cy="108" r="6" />
+              <circle class="dot" cx="589" cy="62" r="6" />
+              <circle class="dot" cx="690" cy="98" r="6" />
+
+              <text class="axis-text" x="78" y="284">Sen</text>
+              <text class="axis-text" x="178" y="284">Sel</text>
+              <text class="axis-text" x="278" y="284">Rab</text>
+              <text class="axis-text" x="378" y="284">Kam</text>
+              <text class="axis-text" x="478" y="284">Jum</text>
+              <text class="axis-text" x="578" y="284">Sab</text>
+              <text class="axis-text" x="678" y="284">Min</text>
+            </svg>
+
+            <div class="chart-legend">
+              <div class="legend-item">
+                <span class="legend-dot"></span>
+                Laporan Masuk
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot" style="background:#f4b4b4;"></span>
+                Laporan Selesai
+              </div>
+              <div class="legend-item">
+                <span class="legend-dot dark"></span>
+                Tren Respons
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel map-panel">
+          <div class="panel-header">
+            <div class="panel-title">
+              <h2>Peta Laporan</h2>
+              <p>Distribusi titik laporan aktif</p>
+            </div>
+
+            <select class="panel-filter">
+              <option>Semua Area</option>
+              <option>Prioritas Tinggi</option>
+              <option>Dalam Penanganan</option>
+            </select>
+          </div>
+
+          <div class="map-area">
+            <span class="route one"></span>
+            <span class="route two"></span>
+
+            <span class="map-pin one"></span>
+            <span class="map-pin two"></span>
+            <span class="map-pin three"></span>
+
+            <div class="map-label label-one">Area Utara</div>
+            <div class="map-label label-two">Area Timur</div>
+          </div>
+
+          <div class="map-summary">
+            <div class="map-summary-card">
+              <strong>8</strong>
+              <span>Titik aktif</span>
+            </div>
+            <div class="map-summary-card">
+              <strong>4</strong>
+              <span>Prioritas</span>
+            </div>
+            <div class="map-summary-card">
+              <strong>12m</strong>
+              <span>Rata respons</span>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="table-panel">
+        <div class="table-header">
+          <div class="table-title">
+            <h2>Data Laporan</h2>
+            <span>/ Hari ini</span>
+          </div>
+
+          <div class="table-tools">
+            <select class="filter-select">
+              <option>Semua Status</option>
+              <option>Aktif</option>
+              <option>Monitoring</option>
+              <option>Selesai</option>
+            </select>
+
+            <select class="filter-select">
+              <option>Semua Area</option>
+              <option>Utara</option>
+              <option>Timur</option>
+              <option>Selatan</option>
+            </select>
+
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path
+                  d="M10.5 3a7.5 7.5 0 0 1 5.9 12.1l4.2 4.2-1.4 1.4-4.2-4.2A7.5 7.5 0 1 1 10.5 3Zm0 2a5.5 5.5 0 1 0 0 11 5.5 5.5 0 0 0 0-11Z" />
+              </svg>
+              <input type="text" placeholder="Cari laporan..." />
+            </div>
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>ID Laporan</th>
+                <th>Lokasi</th>
+                <th>Kategori</th>
+                <th>Status</th>
+                <th>Petugas</th>
+                <th>Waktu</th>
+                <th>Aksi</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {% for r in reports[:4] %}
+              <tr>
+                <td class="report-id">#{{ r.nomor_laporan }}</td>
+                <td>{{ r.get('lokasi', '-') }}</td>
+                <td>{{ r.get('jenis_bangunan', '-') | replace('_', ' ') | title }}</td>
+                <td>
+                  {% if 'Tinggi' in r.status %}
+                  <span class="status pending">{{ r.status }}</span>
+                  {% elif 'Sedang' in r.status %}
+                  <span class="status monitor">{{ r.status }}</span>
+                  {% else %}
+                  <span class="status done">{{ r.status }}</span>
+                  {% endif %}
+                </td>
+                <td>Belum Ditugaskan</td>
+                <td>{{ r.created_at.split('T')[1][:5] if r.created_at else '-' }} WIB</td>
+                <td>
+                  <div class="action-group">
+                    <a href="{{ url_for('data_laporan') }}" class="action-btn primary">Detail</a>
+                    <a href="{{ url_for('tracking_laporan') }}?id={{ r.id }}" class="action-btn secondary">Track</a>
+                  </div>
+                </td>
+              </tr>
+              {% else %}
+              <tr>
+                <td colspan="7" style="text-align:center;padding:32px;color:#9ca3af;">
+                  Belum ada laporan. <a href="{{ url_for('laporan_kebakaran') }}"
+                    style="color:#dc3838;font-weight:700;">Buat laporan baru</a>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        <div class="table-footer">
+          <p>Menampilkan {{ reports[:4] | length }} dari {{ reports | length }} laporan</p>
+
+          <div class="pagination">
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">›</button>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <label for="sidebarToggle" class="overlay" aria-label="Tutup sidebar"></label>
+
+  <script>
+    fetch('/api/stats')
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById('statTotal').textContent = data.total ?? 0;
+        document.getElementById('statProses').textContent = data.proses ?? 0;
+        document.getElementById('statSelesai').textContent = data.selesai ?? 0;
+        document.getElementById('statTinggi').textContent = data.prioritas_tinggi ?? 0;
+      })
+      .catch(() => { });
+  </script>
+</body>
+
+</html>

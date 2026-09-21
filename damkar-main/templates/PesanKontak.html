@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pesan Masuk | Damkar.Sub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+    <link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet">
+</head>
+
+<body class="page-data-laporan">
+    <input type="checkbox" id="sidebarToggle" class="sidebar-toggle" />
+    <div class="dashboard">
+        <aside class="sidebar" id="sidebar">
+            <div>
+                <div class="sidebar-header">
+                    <a href="{{ url_for('dashboard') }}" class="brand" aria-label="Damkar.Sub Admin Panel">
+                        <div class="brand-icon">
+                            <svg viewBox="0 0 24 24" aria-hidden="true">
+                                <path
+                                    d="M12.2 2.2c.7 2.1.2 3.8-.9 5.2-.7.9-1.1 1.6-.8 2.5.5-.6 1.1-1.1 1.9-1.6 1.7-1.1 2.5-2.7 2.2-4.6 3.9 2.5 6.2 6.1 6.2 10.1 0 4.4-3.6 8-8.4 8s-8.4-3.6-8.4-8c0-2.9 1.5-5.3 3.4-7.1-.1 1.5.3 2.7 1.3 3.8.2-1.8 1.2-3.3 2.2-4.5.9-1.1 1.6-2.2 1.3-3.8Z" />
+                            </svg>
+                        </div>
+                        <div class="brand-text">
+                            <strong>Damkar.Sub</strong>
+                            <span>Admin Panel</span>
+                        </div>
+                    </a>
+                    <label for="sidebarToggle" class="menu-button" aria-label="Tutup sidebar">
+                        <span></span>
+                    </label>
+                </div>
+
+                <p class="nav-section-title">Menu Utama</p>
+
+                <nav class="nav-menu" aria-label="Navigasi admin">
+                    <a href="{{ url_for('dashboard') }}" class="nav-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 13h7V4H4v9Zm0 7h7v-5H4v5Zm9 0h7v-9h-7v9Zm0-16v5h7V4h-7Z" />
+                        </svg>
+                        Dashboard
+                    </a>
+                    <a href="{{ url_for('laporan_kebakaran') }}" class="nav-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 2h9l5 5v15H6V2Zm8 1.5V8h4.5L14 3.5ZM8 11h8v2H8v-2Zm0 4h8v2H8v-2Z" />
+                        </svg>
+                        Laporan Kebakaran
+                    </a>
+                    <a href="{{ url_for('tracking_laporan') }}" class="nav-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M12 2a8 8 0 0 0-8 8c0 5.3 8 12 8 12s8-6.7 8-12a8 8 0 0 0-8-8Zm0 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6Z" />
+                        </svg>
+                        Tracking Laporan
+                    </a>
+                    <a href="{{ url_for('data_laporan') }}" class="nav-link">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M4 4h16v4H4V4Zm0 6h16v4H4v-4Zm0 6h16v4H4v-4Z" />
+                        </svg>
+                        Data Laporan
+                    </a>
+                    <a href="{{ url_for('pesan_kontak_page') }}" class="nav-link active">
+                        <svg viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                        Pesan Masuk
+                        {% if pesan_kontak and pesan_kontak|length > 0 %}
+                        <span
+                            style="margin-left:auto;background:#dc3838;color:#fff;border-radius:999px;padding:2px 8px;font-size:11px;font-weight:800;">{{
+                            pesan_kontak|length }}</span>
+                        {% endif %}
+                    </a>
+                </nav>
+            </div>
+
+            <div class="sidebar-footer">
+                <div class="user-card">
+                    <div class="avatar">P</div>
+                    <div class="user-info">
+                        <strong>Petugas Admin</strong>
+                        <span>Command Center</span>
+                    </div>
+                </div>
+                <a class="logout-btn" href="{{ url_for('logout') }}"
+                    style="display:flex;align-items:center;justify-content:center;text-decoration:none;">Logout</a>
+            </div>
+        </aside>
+
+        <main class="main">
+            <header class="header">
+                <label for="sidebarToggle" class="mobile-open" aria-label="Buka sidebar"><span></span></label>
+                <div class="header-title">
+                    <h1><i class="fas fa-envelope-open-text"></i> Pesan Masuk</h1>
+                    <p>Pertanyaan, saran, dan permintaan dari masyarakat</p>
+                </div>
+                <div class="header-actions">
+                    <div class="search-box">
+                        <i class="fas fa-search"></i>
+                        <input id="searchInput" placeholder="Cari nama, kategori, subjek..." type="text" />
+                    </div>
+                    <button class="btn-refresh" onclick="location.reload();">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                </div>
+            </header>
+
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div
+                style="padding:12px 16px;border-radius:14px;margin-bottom:18px;background:#dcfce7;color:#166534;font-weight:600;border:1px solid #86efac;">
+                <i class="fas fa-check-circle"></i> {{ message }}
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-icon red">
+                        <i class="fas fa-inbox"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ pesan_list | length }}</h3>
+                        <p>Total Pesan</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ pesan_list | selectattr('kategori', 'equalto', 'pertanyaan') | list | length }}</h3>
+                        <p>Pertanyaan</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ pesan_list | selectattr('kategori', 'equalto', 'inspeksi') | list | length }}</h3>
+                        <p>Permintaan Inspeksi</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <div class="stat-info">
+                        <h3>{{ pesan_list | selectattr('kategori', 'equalto', 'edukasi') | list | length }}</h3>
+                        <p>Permintaan Edukasi</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-wrapper">
+                <div class="table-header">
+                    <div class="table-title">
+                        <i class="fas fa-inbox"></i> Daftar Pesan Masuk
+                    </div>
+                    <div class="filter-status">
+                        <label><i class="fas fa-filter"></i> Kategori:</label>
+                        <select id="filterKategori">
+                            <option value="all">Semua Kategori</option>
+                            <option value="pertanyaan">Pertanyaan Umum</option>
+                            <option value="saran">Saran & Masukan</option>
+                            <option value="inspeksi">Permintaan Inspeksi</option>
+                            <option value="edukasi">Permintaan Edukasi</option>
+                            <option value="sertifikasi">Sertifikasi</option>
+                            <option value="lainnya">Lainnya</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Nama Pengirim</th>
+                                <th>Kategori</th>
+                                <th>Subjek</th>
+                                <th>Tanggal</th>
+                                <th style="width: 80px;">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for p in pesan_list %}
+                            <tr data-id="{{ p.id }}" data-kategori="{{ p.kategori }}">
+                                <td class="nama-cell">
+                                    <strong>{{ p.nama }}</strong>
+                                    <span class="email-sub">{{ p.email }}</span>
+                                </td>
+                                <td><span class="regu-badge"><i class="fas fa-tag"></i> {{ p.kategori }}</span></td>
+                                <td>{{ p.subjek }}</td>
+                                <td>{{ p.created_at[:10] if p.created_at else '-' }} {{ p.created_at[11:16] if
+                                    p.created_at else '' }}</td>
+                                <td class="action-cell">
+                                    <button class="btn-detail" data-id="{{ p.id }}">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            {% else %}
+                            <tr>
+                                <td colspan="5" style="text-align:center;padding:40px;color:#94a3b8;">
+                                    Belum ada pesan masuk.
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <i class="fas fa-info-circle"></i> Klik tombol <i class="fas fa-eye"></i> untuk membaca pesan
+                    lengkap
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div class="modal" id="detailModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3><i class="fas fa-envelope-open-text"></i> Detail Pesan</h3>
+                <span class="close-modal">×</span>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script>
+        const pesanData = {{ pesan_list | tojson }};
+
+        const filterKategori = document.getElementById('filterKategori');
+        const searchInput = document.getElementById('searchInput');
+        const tableRows = document.querySelectorAll('.data-table tbody tr');
+
+        function filterTable() {
+            const selectedKategori = filterKategori.value;
+            const searchTerm = searchInput.value.toLowerCase();
+
+            tableRows.forEach(row => {
+                if (row.querySelector('td[colspan]')) return;
+
+                const rowKategori = row.getAttribute('data-kategori') || '';
+                const nama = row.querySelector('.nama-cell strong')?.textContent.toLowerCase() || '';
+                const email = row.querySelector('.email-sub')?.textContent.toLowerCase() || '';
+                const subjek = row.querySelector('td:nth-child(3)')?.textContent.toLowerCase() || '';
+
+                let matchKategori = (selectedKategori === 'all') || (rowKategori === selectedKategori);
+                let matchSearch = (searchTerm === '') ||
+                    nama.includes(searchTerm) ||
+                    email.includes(searchTerm) ||
+                    subjek.includes(searchTerm);
+
+                row.style.display = (matchKategori && matchSearch) ? '' : 'none';
+            });
+        }
+
+        filterKategori.addEventListener('change', filterTable);
+        searchInput.addEventListener('keyup', filterTable);
+
+        const modal = document.getElementById('detailModal');
+        const modalBody = document.getElementById('modalBody');
+        const closeBtn = document.querySelector('.close-modal');
+
+        function openModal(id) {
+            const p = pesanData.find(x => x.id === id);
+            if (!p) return;
+
+            modalBody.innerHTML = `
+        <div class="detail-section">
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-user"></i> Nama</div><div class="detail-value">${p.nama}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-envelope"></i> Email</div><div class="detail-value">${p.email}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-phone-alt"></i> Telepon</div><div class="detail-value">${p.telepon}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-tag"></i> Kategori</div><div class="detail-value"><span class="regu-detail">${p.kategori}</span></div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-heading"></i> Subjek</div><div class="detail-value">${p.subjek}</div></div>
+            <div class="detail-group"><div class="detail-label"><i class="fas fa-clock"></i> Tanggal</div><div class="detail-value">${p.created_at}</div></div>
+            <div class="detail-group full-width"><div class="detail-label"><i class="fas fa-comment-alt"></i> Isi Pesan</div><div class="detail-value kronologi-detail">${p.pesan}</div></div>
+        </div>
+        `;
+            modal.style.display = 'flex';
+        }
+
+        document.querySelectorAll('.btn-detail').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                e.stopPropagation();
+                openModal(this.getAttribute('data-id'));
+            });
+        });
+
+        closeBtn.addEventListener('click', () => modal.style.display = 'none');
+        window.addEventListener('click', (e) => { if (e.target === modal) modal.style.display = 'none'; });
+    </script>
+    <label for="sidebarToggle" class="overlay" aria-label="Tutup sidebar"></label>
+</body>
+
+</html>

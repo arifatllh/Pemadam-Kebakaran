@@ -1,0 +1,32 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+venv/
+env/
+.venv/
+
+# File model ML (bisa di-generate ulang dari train_model.py)
+*.joblib
+*.pkl
+*.h5
+
+# Build/dist
+.dist/
+build/
+dist/
+
+# Data cache (opsional, hapus kalau mau dataset di-push)
+# *.csv
+
+# Windows
+desktop.ini
+Thumbs.db
+
+# Environment
+.env
+
+# IDE
+.vscode/
+.idea/
+*.swp

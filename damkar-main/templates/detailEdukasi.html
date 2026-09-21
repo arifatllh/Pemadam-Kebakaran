@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detail Edukasi — Damkar.Sub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600;9..40,700&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+
+<body class="page-detail-edukasi">
+
+  <!--  NAVBAR  -->
+  <nav>
+    <a href="landingPage.html" class="nav-logo">
+      <div class="logo-icon">
+        <svg viewBox="0 0 24 24">
+          <path
+            d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11zm0 16a4 4 0 01-4-4c0-1.8.9-3.6 2.3-5.5.7 1.8 1.2 3.5 1.7 3.5s1-1.7 1.7-3.5C15.1 10.4 16 12.2 16 14a4 4 0 01-4 4z" />
+        </svg>
+      </div>
+      Damkar.Sub
+    </a>
+    <div class="nav-right">
+      <a href="landingPage.html#kontak" class="nav-btn nav-btn-outline">Hubungi</a>
+      <a href="landingPage.html#contact-form" class="nav-btn nav-btn-red">Lapor</a>
+    </div>
+  </nav>
+
+  <!-- DETAIL SECTION -->
+  <div class="detail-wrapper">
+    <a href="landingPage.html" class="btn-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M19 12H5M12 19l-7-7 7-7" />
+      </svg>
+      Kembali ke Beranda
+    </a>
+
+    <div class="detail-card">
+      <img src="" alt="Edukasi Damkar" class="detail-hero-img" id="edukasi-img" />
+      <div class="detail-content">
+        <div class="detail-cat" id="edukasi-cat">Kategori</div>
+        <h1 class="detail-title" id="edukasi-title">Memuat...</h1>
+        <p class="detail-desc" id="edukasi-desc">Silakan tunggu sebentar...</p>
+
+        <ul class="detail-features" id="edukasi-features">
+          <!-- JS will populate -->
+        </ul>
+
+        <div class="detail-actions">
+          <a href="landingPage.html#contact-form" class="nav-btn nav-btn-red"
+            style="padding: 12px 24px; font-size: 16px;">Undang Kami untuk Edukasi</a>
+          <a href="https://www.youtube.com/results?search_query=edukasi+pemadam+kebakaran" target="_blank"
+            class="nav-btn nav-btn-outline" style="padding: 12px 24px; font-size: 16px;">Lihat Video Pelatihan</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--FOOTER-->
+  <footer>
+    <div class="ft-brand">
+      <div class="nav-logo" style="margin-bottom:10px;">
+        <div class="logo-icon">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C8 7 6 10 6 13a6 6 0 0012 0c0-3-2-6-6-11z" />
+          </svg>
+        </div>
+        Damkar.Sub
+      </div>
+      <p>Sistem informasi terpadu pemadam kebakaran dan hidran Kota Surabaya.</p>
+    </div>
+
+    <div class="ft-col">
+      <div class="ft-col-title">Alamat</div>
+      <p>Jl. Pasar Turi No.21, Bubutan –<br />Surabaya, Jawa Timur</p>
+    </div>
+
+    <div class="ft-col">
+      <div class="ft-col-title">Kontak</div>
+      <a href="mailto:dinas.kebakaran@gmail.com">dinas.kebakaran@gmail.com</a>
+      <a href="tel:112">112 (Darurat)</a>
+      <a href="https://wa.me/6281131112112">0811 3111 2112 (Kantor)</a>
+      <div class="ft-col-title" style="margin-top:14px;">Media Sosial</div>
+      <div class="social-row">
+        <div class="social-btn" title="Facebook">
+          <svg viewBox="0 0 24 24">
+            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+          </svg>
+        </div>
+        <div class="social-btn" title="Instagram">
+          <svg viewBox="0 0 24 24">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="rgba(255,255,255,.7)"
+              stroke-width="2" />
+            <circle cx="17.5" cy="6.5" r="1" fill="rgba(255,255,255,.7)" />
+          </svg>
+        </div>
+        <div class="social-btn" title="YouTube">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.54C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.96A29 29 0 0023 12a29 29 0 00-.46-5.58z" />
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1A1E24" />
+          </svg>
+        </div>
+        <div class="social-btn" title="Twitter/X">
+          <svg viewBox="0 0 24 24">
+            <path
+              d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+          </svg>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <span>© 2026 Dinas Pemadam Kebakaran Kota Surabaya. Seluruh Hak Cipta Dilindungi.</span>
+    <span>v2.1.0</span>
+  </div>
+
+  <script>
+    const edukasiData = {
+      "evakuasi-gedung": {
+        cat: "Evakuasi",
+        title: "Simulasi Evakuasi Gedung Pemerintah",
+        desc: "Simulasi evakuasi merupakan langkah krusial untuk memastikan kesiapan seluruh staf dan pengunjung gedung pemerintah dalam menghadapi situasi darurat kebakaran. Latihan ini dirancang untuk menguji prosedur evakuasi, kecepatan respon, dan efektivitas jalur evakuasi yang ada.",
+        img: "https://c.files.bbci.co.uk/13D6F/production/_106236218_gettyimages-1133289852-594x594.jpg",
+        points: ["Pengenalan bunyi alarm dan rute darurat", "Praktik berkumpul di titik kumpul (Assembly Point)", "Penyelamatan dokumen penting secara terorganisir"]
+      },
+      "kebocoran-gas": {
+        cat: "Gas",
+        title: "Respon Cepat Kebocoran Gas di Pemukiman",
+        desc: "Kebocoran gas LPG di area pemukiman padat merupakan salah satu penyebab utama kebakaran. Edukasi ini mengajarkan masyarakat cara mengenali bau gas bocor, tindakan pertama yang harus dilakukan, serta pantangan saat terjadi kebocoran untuk mencegah ledakan.",
+        img: "https://cdn-jjmn.jawapos.com/images/19/2024/06/07/image1-3414941477.jpeg",
+        points: ["Jangan menyalakan/mematikan saklar listrik", "Segera cabut regulator dan bawa tabung ke ruang terbuka", "Buka jendela lebar-lebar untuk sirkulasi udara"]
+      },
+      "pemeriksaan-apar": {
+        cat: "APAR",
+        title: "Pemeriksaan APAR di Kawasan Industri",
+        desc: "Alat Pemadam Api Ringan (APAR) adalah garis pertahanan pertama. Kawasan industri dengan potensi bahaya tinggi wajib memastikan seluruh APAR berfungsi dengan baik. Kami mengedukasi para pengelola pabrik cara melakukan inspeksi visual bulanan secara mandiri.",
+        img: "https://firecek.com/wp-content/uploads/2020/07/cara-perawatan-apar-1.webp",
+        points: ["Mengecek jarum indikator tekanan pada area hijau", "Memastikan segel pin pengaman belum terbuka", "Pengecekan fisik tabung dari korosi atau kebocoran"]
+      },
+      "panduan-apar": {
+        cat: "Panduan",
+        title: "Panduan Penggunaan APAR",
+        desc: "Setiap orang harus mengetahui cara menggunakan APAR dengan metode T.A.T.A (Tarik pin, Arahkan nozzle ke sumber api, Tekan tuas, Ayunkan dari kiri ke kanan). Panduan ini memuat langkah-langkah praktis dan aman dalam menanggulangi api kecil sebelum membesar.",
+        img: "https://www.pemadamapi.id/wp-content/uploads/2022/09/prosedur-penggunaan-apar-2-1280x720.webp",
+        points: ["Cabut PIN pengaman (Tarik)", "Pegang ujung selang dan arahkan ke dasar api (Arahkan)", "Tekan tuas penuh untuk mengeluarkan media (Tekan & Ayunkan)"]
+      }
+    };
+
+    // Ambil parameter ID dari URL
+    const urlParams = new URLSearchParams(window.location.search);
+    let id = urlParams.get('id');
+
+    // Jika tidak ada ID atau ID tidak valid, default ke evakuasi-gedung
+    if (!id || !edukasiData[id]) {
+      id = 'evakuasi-gedung';
+    }
+
+    const data = edukasiData[id];
+
+    // Set isi HTML
+    document.getElementById('edukasi-cat').textContent = data.cat;
+    document.getElementById('edukasi-title').textContent = data.title;
+    document.getElementById('edukasi-desc').textContent = data.desc;
+    document.getElementById('edukasi-img').src = data.img;
+
+    const featuresUl = document.getElementById('edukasi-features');
+    data.points.forEach(point => {
+      const li = document.createElement('li');
+      li.textContent = point;
+      featuresUl.appendChild(li);
+    });
+  </script>
+</body>
+
+</html>
